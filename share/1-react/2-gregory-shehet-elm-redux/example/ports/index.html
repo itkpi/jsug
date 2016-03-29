@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Thumbs</title>
+  <script type="text/javascript" src="elm.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <input type="submit" value="+" onClick="sendEvent('Increment')">
+  <input type="submit" value="-" onClick="sendEvent('Decrement')">
+  <div id="elm-app-lives-here"></div>
+</body>
+
+<script type="text/javascript">
+  var elmDiv = document.getElementById('elm-app-lives-here')
+  var elmApp = Elm.embed(Elm.Main.Ports, elmDiv, {modelValue: "0"})
+
+  elmApp.ports.modelChanges.subscribe(function(model) {
+    console.log(model)
+  })
+
+  function sendEvent(action) {
+    elmApp.ports.modelValue.send(action)
+  }
+</script>
+
+</html>
